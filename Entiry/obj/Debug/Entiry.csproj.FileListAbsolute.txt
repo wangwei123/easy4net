@@ -1,0 +1,8 @@
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\bin\Debug\Entiry.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\bin\Debug\Entiry.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\obj\Debug\Entiry.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\obj\Debug\Entiry.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Entiry\obj\Debug\Entiry.pdb

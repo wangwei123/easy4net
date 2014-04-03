@@ -1,0 +1,17 @@
+C:\Users\Administrator\Desktop\帮帮排资料源码\Ch_uu\Orm\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\Ch_uu\Orm\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\Ch_uu\Orm\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\Ch_uu\Orm\obj\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\Ch_uu\Orm\obj\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\UTicketNotification\Orm\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\UTicketNotification\Orm\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\UTicketNotification\Orm\obj\Debug\Orm.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\UTicketNotification\Orm\obj\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\UTicketNotification\Orm\obj\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\ch_uu\Orm\obj\Debug\Orm.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\obj\Debug\Orm.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\obj\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\obj\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\MySql.Data.dll

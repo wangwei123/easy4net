@@ -1,0 +1,17 @@
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.Form1.resources
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.Properties.Resources.resources
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.csproj.GenerateResource.Cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\WindowsDemo.exe.config
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\WindowsDemo.exe
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\WindowsDemo.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.exe
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\obj\x86\Debug\WindowsDemo.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\Entiry.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\Entiry.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\WindowsDemo\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\easy4net\WindowsDemo\bin\Debug\WindowsDemo.exe.config
+C:\Users\Administrator\Desktop\帮帮排资料源码\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.exe
+C:\Users\Administrator\Desktop\帮帮排资料源码\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.pdb

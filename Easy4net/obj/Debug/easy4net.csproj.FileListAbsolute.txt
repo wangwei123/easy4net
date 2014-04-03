@@ -1,0 +1,11 @@
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\obj\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Orm\obj\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\bin\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\bin\Debug\Orm.pdb
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\bin\Debug\MySql.Data.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\obj\Debug\Easy4net.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\obj\Debug\Orm.dll
+C:\Users\Administrator\Desktop\帮帮排资料源码\myothers\OrmDemo\Easy4net\obj\Debug\Orm.pdb
