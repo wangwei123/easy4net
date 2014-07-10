@@ -12,7 +12,24 @@ namespace Easy4net.Common
             {
                 return null;
             }
-            switch (type.FullName)
+
+            string typeName = type.FullName.ToString();
+            System.Console.WriteLine(typeName);
+
+            if (type == typeof(System.Nullable<UInt16>))
+            {
+                value = Convert.ToUInt16(value);
+            }
+            else if (type == typeof(System.Nullable<UInt32>))
+            {
+                value = Convert.ToUInt32(value);
+            }
+            else if (type == typeof(System.Nullable<UInt64>))
+            {
+                value = Convert.ToUInt64(value);
+            }
+
+            switch (typeName)
             {
                 case "System.String":
                     if (!isNullOrEmpty(value))
@@ -23,10 +40,16 @@ namespace Easy4net.Common
                         value = Convert.ToBoolean(value);
                     break;
                 case "System.Int16":
+                    if (!isNullOrEmpty(value))
+                        value = Convert.ToInt16(value);
+                    break;
                 case "System.Int32":
-                case "System.Int64":
                     if (!isNullOrEmpty(value))
                         value = Convert.ToInt32(value);
+                    break;
+                case "System.Int64":
+                    if (!isNullOrEmpty(value))
+                        value = Convert.ToInt64(value);
                     break;
                 case "System.Double":
                     if (!isNullOrEmpty(value))

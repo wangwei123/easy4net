@@ -47,7 +47,7 @@ namespace WindowsDemo
 
             String age = txtAge.Text.Trim();
             if (age.Length == 0) stu.Age = null;
-            if (age.Length > 0) stu.Age =  Convert.ToInt32(txtAge.Text);
+            if (age.Length > 0) stu.Age = 1;// Convert.ToInt32(txtAge.Text);
             stu.Gender = txtGender.Text;
             stu.Address = txtAddress.Text;
 
@@ -63,7 +63,7 @@ namespace WindowsDemo
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             updateStudent.Name = txtName.Text;
-            updateStudent.Age = Convert.ToInt32(txtAge.Text);
+            updateStudent.Age = 1;// Convert.ToInt32(txtAge.Text);
             updateStudent.Gender = txtGender.Text;
             updateStudent.Address = txtAddress.Text;
             DB.Update<Student>(updateStudent);
