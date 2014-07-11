@@ -295,11 +295,11 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.Red;
-            this.label13.Location = new System.Drawing.Point(750, 460);
+            this.label13.Location = new System.Drawing.Point(683, 399);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(173, 12);
+            this.label13.Size = new System.Drawing.Size(209, 12);
             this.label13.TabIndex = 24;
-            this.label13.Text = "分页查询支持SqlServer和MySQL";
+            this.label13.Text = "分页查询支持SqlServer和MySQL数据库";
             // 
             // selectedRow
             // 
