@@ -21,11 +21,11 @@ D:\workspace\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.pdb
 D:\workspace\easy4net\WindowsDemo\bin\Debug\WindowsDemo.exe
 D:\workspace\easy4net\WindowsDemo\bin\Debug\WindowsDemo.pdb
 D:\workspace\easy4net\WindowsDemo\bin\Debug\Entiry.dll
-D:\workspace\easy4net\WindowsDemo\bin\Debug\Orm.dll
 D:\workspace\easy4net\WindowsDemo\bin\Debug\MySql.Data.dll
-D:\workspace\easy4net\WindowsDemo\bin\Debug\Orm.pdb
 D:\workspace\easy4net\WindowsDemo\bin\Debug\Entiry.pdb
 D:\workspace\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.csprojResolveAssemblyReference.cache
 D:\workspace\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.Form1.resources
 D:\workspace\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.Properties.Resources.resources
 D:\workspace\easy4net\WindowsDemo\obj\x86\Debug\WindowsDemo.csproj.GenerateResource.Cache
+D:\workspace\easy4net\WindowsDemo\bin\Debug\Easy4net.dll
+D:\workspace\easy4net\WindowsDemo\bin\Debug\Easy4net.pdb

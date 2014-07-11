@@ -34,7 +34,9 @@ namespace WindowsDemo
         #region "查询所有数据"
         void refreshData()
         {
-            m_stuList = DB.FindAll<Student>();
+            int pageIndex = 1;
+            int pageSize = 3;
+            m_stuList = DB.FindBySql<Student>("SELECT * FROM student", pageIndex, pageSize);
             dataGridView1.DataSource = m_stuList;
         }
         #endregion
@@ -47,7 +49,7 @@ namespace WindowsDemo
 
             String age = txtAge.Text.Trim();
             if (age.Length == 0) stu.Age = null;
-            if (age.Length > 0) stu.Age = 1;// Convert.ToInt32(txtAge.Text);
+            if (age.Length > 0) stu.Age = Convert.ToInt64(txtAge.Text);
             stu.Gender = txtGender.Text;
             stu.Address = txtAddress.Text;
 
@@ -116,15 +118,20 @@ namespace WindowsDemo
         #region "根据字段名称和值查询"
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            string field = txtField.Text.Trim();
-            string value = txtValue.Text.Trim();
+            int pageIndex = Convert.ToInt32(txtPageIndex.Text);
+            int pageSize = Convert.ToInt32(txtPageSize.Text);
 
-            if (field == "" || value == "")
-            {
-                refreshData();
-            }
-            else
-            {
+            string sql = "select * from student";
+
+            m_stuList = DB.FindBySql<Student>(sql, pageIndex, pageSize);
+            dataGridView1.DataSource = m_stuList;
+
+            return;
+
+            //=================================================================================================================
+            //=========下面为查询的多种使用案例================================================================================
+            //=================================================================================================================
+
                 //查询所有学员信息
                 List<Student> list = DB.FindAll<Student>();
 
@@ -132,32 +139,31 @@ namespace WindowsDemo
                 Student student = DB.FindById<Student>(5);
 
                 //自定义SQL查询
-                List<Student> list1 = DB.FindBySql<Student>("SELECT * FROM U_Student WHERE U_Age < 28");
+                pageIndex = 1;
+                pageSize = 3;
+                List<Student> list1 = DB.FindBySql<Student>("SELECT * FROM student WHERE age < 28", pageIndex, pageSize);
 
                 //按某个列查询
-                List<Student> list2 = DB.FindByProperty<Student>("U_Name", "张三");
+                List<Student> list2 = DB.FindByProperty<Student>("name", "张三");
 
                 //按精确条件查询，这里是SELECT xxx FROM U_Student WHERE U_Name LIKE '%张%' OR U_Age < 28
-                DbCondition cond1 = new DbCondition().Where().Like("U_Name", "张").OrLessThan("U_Age", 28);
+                DbCondition cond1 = new DbCondition().Where().Like("name", "张").OrLessThan("age", 28);
                 List<Student> list3 = DB.Find<Student>(cond1);
 
                 //关联查询，这个不用多说了，会SQL的都知道，查询条件是 WHERE U_Name LIKE '张%'
-                DbCondition cond2 = new DbCondition("SELECT s.*,c.teacher,c.className FROM U_Student s INNER JOIN U_Class c ON s.classID = c.ID").Where().RightLike("U_Name", "张");
+                DbCondition cond2 = new DbCondition("SELECT s.*,c.teacher,c.class_name FROM student s INNER JOIN class c ON s.class_id = c.id").Where().RightLike("name", "张");
                 List<Student> list4 = DB.Find<Student>(cond2);
 
                 //这里是查询 SELECT count(0) FROM U_Student WHERE U_Name = '张三' AND U_Age = 28
-                DbCondition cond3 = new DbCondition().Where("U_Name", "张三").And("U_Age", 28);
+                DbCondition cond3 = new DbCondition().Where("name", "张三").And("age", 28);
                 int count = DB.FindCount<Student>(cond3);
-
+                
+                //查询并排序
                 DbCondition condition = new DbCondition();
-                //模糊查找名称和或者年龄<21的人
-                //condition.Where().Like("U_Name", value).OrLessThan("U_Age", 21);
-
-                condition.Where(field, value).OrderByDESC("UserID");
+                condition.Where("name", "张三").OrderByDESC("id");
                 m_stuList = DB.Find<Student>(condition);
 
-                dataGridView1.DataSource = m_stuList;
-            }
+            //=================================================================================================================
         }
         #endregion
     }

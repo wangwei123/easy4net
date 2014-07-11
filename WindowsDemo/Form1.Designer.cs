@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtName = new System.Windows.Forms.TextBox();
             this.txtGender = new System.Windows.Forms.TextBox();
             this.txtAge = new System.Windows.Forms.TextBox();
@@ -41,21 +42,30 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.txtPageIndex = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.txtPageSize = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.selectedRow = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtField = new System.Windows.Forms.TextBox();
-            this.txtValue = new System.Windows.Forms.TextBox();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtName
@@ -181,96 +191,29 @@
             this.Column2,
             this.Column3,
             this.Column4,
+            this.Column6,
+            this.Column7,
+            this.Column9,
+            this.Column8,
             this.Column5});
             this.dataGridView1.Location = new System.Drawing.Point(278, 12);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 23;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(626, 272);
+            this.dataGridView1.Size = new System.Drawing.Size(760, 356);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // selectedRow
-            // 
-            this.selectedRow.HeaderText = "";
-            this.selectedRow.Name = "selectedRow";
-            this.selectedRow.Width = 40;
-            // 
-            // Column1
-            // 
-            this.Column1.DataPropertyName = "UserID";
-            this.Column1.HeaderText = "学员编号";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "Name";
-            this.Column2.HeaderText = "姓名";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.DataPropertyName = "Gender";
-            this.Column3.HeaderText = "性别";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.DataPropertyName = "Age";
-            this.Column4.HeaderText = "年龄";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.DataPropertyName = "Address";
-            this.Column5.HeaderText = "地址";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 150;
-            // 
-            // txtField
-            // 
-            this.txtField.Location = new System.Drawing.Point(344, 304);
-            this.txtField.Name = "txtField";
-            this.txtField.Size = new System.Drawing.Size(82, 21);
-            this.txtField.TabIndex = 11;
-            this.txtField.Text = "U_Name";
-            // 
-            // txtValue
-            // 
-            this.txtValue.Location = new System.Drawing.Point(526, 303);
-            this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(84, 21);
-            this.txtValue.TabIndex = 12;
-            this.txtValue.Text = "王威";
-            // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(616, 303);
+            this.btnSearch.Location = new System.Drawing.Point(420, 440);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnSearch.Size = new System.Drawing.Size(324, 52);
             this.btnSearch.TabIndex = 13;
-            this.btnSearch.Text = "查询";
+            this.btnSearch.Text = "分页查询";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(279, 312);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
-            this.label5.TabIndex = 14;
-            this.label5.Text = "字段名称：";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(464, 312);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "字段值：";
             // 
             // label7
             // 
@@ -294,26 +237,161 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "easy4net官方QQ群：162695864";
             // 
+            // txtPageIndex
+            // 
+            this.txtPageIndex.Location = new System.Drawing.Point(464, 395);
+            this.txtPageIndex.Name = "txtPageIndex";
+            this.txtPageIndex.Size = new System.Drawing.Size(42, 21);
+            this.txtPageIndex.TabIndex = 18;
+            this.txtPageIndex.Text = "1";
+            this.txtPageIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(441, 398);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(17, 12);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "第";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(512, 399);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(17, 12);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "页";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(660, 398);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(17, 12);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "条";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(544, 398);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 12);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "每页显示";
+            // 
+            // txtPageSize
+            // 
+            this.txtPageSize.Location = new System.Drawing.Point(603, 395);
+            this.txtPageSize.Name = "txtPageSize";
+            this.txtPageSize.Size = new System.Drawing.Size(42, 21);
+            this.txtPageSize.TabIndex = 21;
+            this.txtPageSize.Text = "3";
+            this.txtPageSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.Color.Red;
+            this.label13.Location = new System.Drawing.Point(750, 460);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(173, 12);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "分页查询支持SqlServer和MySQL";
+            // 
+            // selectedRow
+            // 
+            this.selectedRow.HeaderText = "";
+            this.selectedRow.Name = "selectedRow";
+            this.selectedRow.Width = 40;
+            // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "UserID";
+            this.Column1.HeaderText = "ID";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 60;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "Name";
+            this.Column2.HeaderText = "姓名";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 80;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Gender";
+            this.Column3.HeaderText = "性别";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 60;
+            // 
+            // Column4
+            // 
+            this.Column4.DataPropertyName = "Age";
+            this.Column4.HeaderText = "年龄";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 80;
+            // 
+            // Column6
+            // 
+            this.Column6.DataPropertyName = "Brithday";
+            this.Column6.HeaderText = "生日";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.DataPropertyName = "Address";
+            this.Column7.HeaderText = "地址";
+            this.Column7.Name = "Column7";
+            // 
+            // Column9
+            // 
+            this.Column9.DataPropertyName = "No";
+            this.Column9.HeaderText = "学号";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 80;
+            // 
+            // Column8
+            // 
+            this.Column8.DataPropertyName = "CreateTime";
+            this.Column8.HeaderText = "创建时间";
+            this.Column8.Name = "Column8";
+            // 
+            // Column5
+            // 
+            this.Column5.DataPropertyName = "ClassID";
+            this.Column5.HeaderText = "ClassID";
+            this.Column5.Name = "Column5";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(926, 427);
+            this.ClientSize = new System.Drawing.Size(1051, 512);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.txtPageSize);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.txtPageIndex);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.btnSearch);
-            this.Controls.Add(this.txtValue);
-            this.Controls.Add(this.txtField);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,19 +412,27 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.TextBox txtPageIndex;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtPageSize;
+        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.DataGridViewCheckBoxColumn selectedRow;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.TextBox txtField;
-        private System.Windows.Forms.TextBox txtValue;
-        private System.Windows.Forms.Button btnSearch;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
     }
 }
 

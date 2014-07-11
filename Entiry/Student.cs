@@ -13,7 +13,7 @@ namespace Entiry
     public class Student
     {
         //主键 INDENTITY自动增长标识
-        [Id(Name = "id", Strategy = GenerationType.SEQUENCE)]
+        [Id(Name = "id", Strategy = GenerationType.INDENTITY)]
         public int? UserID { get; set; }
 
         [Column(Name = "no")]

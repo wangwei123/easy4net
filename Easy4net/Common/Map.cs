@@ -11,6 +11,12 @@ namespace Easy4net.Common
         {
             if (this.ContainsKey(key)) this.Remove(key);
             this.Add(key, value);
-        }      
+        }
+
+        public void setParameter(string key, object value)
+        {
+            if (this.ContainsKey(key)) this.Remove(key);
+            this.Add(key, value);
+        }
     }
 }

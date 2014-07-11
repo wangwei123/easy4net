@@ -28,6 +28,14 @@ namespace Easy4net.Common
             {
                 value = Convert.ToUInt64(value);
             }
+            else if (type == typeof(System.Nullable<Int32>))
+            {
+                value = Convert.ToInt32(value);
+            }
+            else if (type == typeof(System.Nullable<Int64>))
+            {
+                value = Convert.ToInt64(value);
+            }
 
             switch (typeName)
             {

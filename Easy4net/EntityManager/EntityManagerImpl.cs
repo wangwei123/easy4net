@@ -294,17 +294,65 @@ namespace Easy4net.EntityManager
         #endregion
 
         #region 通过自定义SQL语句查询数据
-        public List<T> FindBySql<T>(string strSql) where T : new()
+        public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize, string order, bool desc) where T : new()
         {
             List<T> listArr = new List<T>();
             IDataReader sdr = null;
             try
             {
-                strSql = strSql.ToUpper();
+                strSql = strSql.ToLower();
+                String columns = SQLBuilderHelper.fetchColumns(strSql);
+
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
                 TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
 
-                String columns = strSql.Substring(0, strSql.IndexOf("FROM"));
+                strSql = SQLBuilderHelper.builderPageSQL(strSql, columns, tableInfo.TableName, order, desc, pageIndex, pageSize);
+                
+                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql);
+                while (sdr.Read())
+                {
+                    T entity = new T();
+                    foreach (PropertyInfo property in properties)
+                    {
+                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
+
+                        String name = tableInfo.PropToColumn[property.Name].ToString();
+                        if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
+                        {
+                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
+                        }
+                    }
+
+                    listArr.Add(entity);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sdr != null) sdr.Close();
+            }
+
+            return listArr;
+        }
+        #endregion
+
+        #region 通过自定义SQL语句查询数据
+        public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize) where T : new()
+        {
+            List<T> listArr = new List<T>();
+            IDataReader sdr = null;
+            try
+            {
+                strSql = strSql.ToLower();
+                String columns = SQLBuilderHelper.fetchColumns(strSql);
+
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+
+                strSql = SQLBuilderHelper.builderPageSQL(strSql, columns, tableInfo.TableName, tableInfo.Id.Key, true, pageIndex, pageSize);
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql);
                 while (sdr.Read())
@@ -338,26 +386,32 @@ namespace Easy4net.EntityManager
         #endregion
 
         #region 通过自定义SQL语句查询数据
-        public List<T> FindBySql<T>(string strSql, IDbDataParameter[] parameters) where T : new()
+        public List<T> FindBySql<T>(string strSql, ParamMap param) where T : new()
         {
             List<T> listArr = new List<T>();
             IDataReader sdr = null;
             try
             {
-                strSql = strSql.ToUpper();
+                strSql = strSql.ToLower();
+                if (AdoHelper.DbType == DatabaseType.MYSQL && param.IsPage)
+                {
+                    string pageFormat = string.Format("limit {0},{1}", param.PageOffset, param.PageLimit);
+                    strSql = strSql + pageFormat;
+                }
+
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
                 TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
 
                 String columns = strSql.Substring(0, strSql.IndexOf("FROM"));
 
-                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, parameters);
+                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
                 while (sdr.Read())
                 {
                     T entity = new T();
                     foreach (PropertyInfo property in properties)
                     {
                         if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-                       
+
                         String name = tableInfo.PropToColumn[property.Name].ToString();
                         if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
                         {

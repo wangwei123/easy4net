@@ -42,10 +42,8 @@ namespace Easy4net.Common
                 {
                     case GenerationType.INDENTITY:
                         break;
-                    case GenerationType.SEQUENCE:
+                    case GenerationType.GUID:
                         strPrimary = System.Guid.NewGuid().ToString();
-                        break;
-                    case GenerationType.TABLE:
                         break;
                 }
             }
@@ -288,6 +286,11 @@ namespace Easy4net.Common
             if (AdoHelper.DbType == DatabaseType.SQLSERVER)
             {
                 autoSQL = " select scope_identity() as AutoId ";
+            }
+
+            if (AdoHelper.DbType == DatabaseType.MYSQL)
+            {
+                autoSQL = " ;select @@identity ";
             }
 
             return autoSQL;

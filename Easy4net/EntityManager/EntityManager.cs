@@ -20,9 +20,11 @@ namespace Easy4net.EntityManager
 
         List<T> FindAll<T>() where T : new();
 
-        List<T> FindBySql<T>(string strSql) where T : new();
+        List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize, string order, bool desc) where T : new();
 
-        List<T> FindBySql<T>(string strSql, IDbDataParameter[] parameters) where T : new();
+        List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize) where T : new();
+
+        List<T> FindBySql<T>(string strSql, ParamMap param) where T : new();
 
         List<T> FindByProperty<T>(string propertyName, object propertyValue) where T : new();
 
