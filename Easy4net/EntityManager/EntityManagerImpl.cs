@@ -273,7 +273,7 @@ namespace Easy4net.EntityManager
                     {
                         if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
 
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
+                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
                         ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
                     }
 
@@ -306,9 +306,12 @@ namespace Easy4net.EntityManager
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
                 TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
 
-                strSql = SQLBuilderHelper.builderPageSQL(strSql, columns, tableInfo.TableName, order, desc, pageIndex, pageSize);
-                
-                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql);
+                strSql = SQLBuilderHelper.builderPageSQL(strSql, order, desc);
+                ParamMap param = ParamMap.newMap();
+                param.setPageIndex(pageIndex);
+                param.setPageSize(pageSize);
+
+                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
                 while (sdr.Read())
                 {
                     T entity = new T();
@@ -316,7 +319,7 @@ namespace Easy4net.EntityManager
                     {
                         if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
 
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
+                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
                         if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
                         {
                             ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
@@ -352,9 +355,12 @@ namespace Easy4net.EntityManager
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
                 TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
 
-                strSql = SQLBuilderHelper.builderPageSQL(strSql, columns, tableInfo.TableName, tableInfo.Id.Key, true, pageIndex, pageSize);
+                strSql = SQLBuilderHelper.builderPageSQL(strSql, tableInfo.Id.Key, true);
+                ParamMap param = ParamMap.newMap();
+                param.setPageIndex(pageIndex);
+                param.setPageSize(pageSize);
 
-                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql);
+                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
                 while (sdr.Read())
                 {
                     T entity = new T();
@@ -362,8 +368,8 @@ namespace Easy4net.EntityManager
                     {
                         if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
 
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
-                        if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
+                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
+                        if (columns.Contains(name) || columns.Contains("*"))
                         {
                             ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
                         }
@@ -393,16 +399,14 @@ namespace Easy4net.EntityManager
             try
             {
                 strSql = strSql.ToLower();
-                if (AdoHelper.DbType == DatabaseType.MYSQL && param.IsPage)
-                {
-                    string pageFormat = string.Format("limit {0},{1}", param.PageOffset, param.PageLimit);
-                    strSql = strSql + pageFormat;
-                }
+                String columns = SQLBuilderHelper.fetchColumns(strSql);
 
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
                 TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
-
-                String columns = strSql.Substring(0, strSql.IndexOf("FROM"));
+                if (param.IsPage && !SQLBuilderHelper.isPage(strSql))
+                {
+                    strSql = SQLBuilderHelper.builderPageSQL(strSql, tableInfo.Id.Key, true);
+                }
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
                 while (sdr.Read())

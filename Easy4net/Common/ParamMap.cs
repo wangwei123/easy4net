@@ -14,11 +14,18 @@ namespace Easy4net.Common
         private int pageOffset;
         private int pageLimit;
 
+        private ParamMap() { }
+
+        public static ParamMap newMap()
+        {
+            return new ParamMap();
+        }
+
         public bool IsPage
         {
           get 
           {
-              return this.ContainsKey("pageIndex") && this.ContainsKey("pageSize");
+              return isPage;
           }
         }
 
@@ -28,7 +35,7 @@ namespace Easy4net.Common
             {
                 if (this.ContainsKey("pageIndex") && this.ContainsKey("pageSize"))
                 {
-                    return this.getInt("pageIndex") * this.getInt("pageSize");
+                    return (this.getInt("pageIndex")-1) * this.getInt("pageSize");
                 }
 
                 return 0;
@@ -96,12 +103,30 @@ namespace Easy4net.Common
             setPages();
         }
 
-        public void setPages() 
+       public void setPages() 
         {
-            if (this.IsPage)
+            if (this.ContainsKey("pageIndex") && this.ContainsKey("pageSize"))
             {
-                this["offset"] = this.PageOffset;
-                this["limit"] = this.PageLimit;
+                this.isPage = true;
+                if (AdoHelper.DbType == DatabaseType.MYSQL)
+                {
+                    this["offset"] = this.PageOffset;
+                    this["limit"] = this.PageLimit;
+                }
+
+                 //int start = (pageIndex-1) * pageSize + 1;
+                //int end = pageIndex * pageSize;
+
+                if (AdoHelper.DbType == DatabaseType.SQLSERVER)
+                {
+                    int pageIndex = this.getInt("pageIndex");
+                    int pageSize = this.getInt("pageSize");
+                    this["pageStart"] = (pageIndex - 1) * pageSize + 1;
+                    this["pageEnd"] = pageIndex * pageSize;
+                }
+
+                this.Remove("pageIndex");
+                this.Remove("pageSize");
             }
         }
 

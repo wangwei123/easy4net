@@ -36,7 +36,8 @@ namespace WindowsDemo
         {
             int pageIndex = 1;
             int pageSize = 3;
-            m_stuList = DB.FindBySql<Student>("SELECT * FROM student", pageIndex, pageSize);
+            string strsql = "SELECT * FROM student where age < 30";
+            m_stuList = DB.FindBySql<Student>(strsql, pageIndex, pageSize);
             dataGridView1.DataSource = m_stuList;
         }
         #endregion
@@ -121,9 +122,21 @@ namespace WindowsDemo
             int pageIndex = Convert.ToInt32(txtPageIndex.Text);
             int pageSize = Convert.ToInt32(txtPageSize.Text);
 
-            string sql = "select * from student";
-
+            /*string sql = "SELECT * FROM student where age < 20";
             m_stuList = DB.FindBySql<Student>(sql, pageIndex, pageSize);
+            dataGridView1.DataSource = m_stuList;*/
+
+            //string sql = "SELECT * FROM student where age < @age or address= @address";
+
+            string sql = "SELECT * FROM (select * from student where age < @age or address= @address) as v";
+            ParamMap param = ParamMap.newMap();
+            param.setParameter("age",24);
+            param.setParameter("address", "上海市");
+            param.setPageIndex(pageIndex);
+            param.setPageSize(pageSize);
+
+            m_stuList = DB.FindBySql<Student>(sql, param);
+
             dataGridView1.DataSource = m_stuList;
 
             return;

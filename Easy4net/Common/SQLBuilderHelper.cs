@@ -8,30 +8,71 @@ namespace Easy4net.Common
 {
     public class SQLBuilderHelper
     {
-        private static string mssqlPageTemplate = "select {0} from (select {1},ROW_NUMBER() OVER(order by {2}) AS RowNumber FROM {3}) a where RowNumber BETWEEN {4} and {5} order by {6}";
-        private static string mysqlPageTemplate = "{0} order by {1} limit {2},{3}";
+        private static string mssqlPageTemplate = "select {0} from (select ROW_NUMBER() OVER(order by {1}) AS RowNumber, {2}) as tmp_tbl where RowNumber BETWEEN @pageStart and @pageEnd ";
+        private static string mysqlPageTemplate = "{0} order by {1} limit ?offset,?limit";
 
         public static string fetchColumns(string strSQL)
         {
-            String columns = strSQL.Substring(6, strSQL.LastIndexOf("from") - 6);
+            String columns = strSQL.Substring(6, strSQL.IndexOf("from") - 6);
             return columns;
         }
 
-        public static string builderPageSQL(string strSql, string columns, string tableName, string order, bool desc, int pageIndex, int pageSize)
+        public static string fetchPageBody(string strSQL)
         {
-            string orderBy = order + (desc ? " desc " : " asc ");
-            if (AdoHelper.DbType == DatabaseType.SQLSERVER && strSql.IndexOf("ROW_NUMBER()") == -1)
+            string body = strSQL.Substring(6, strSQL.Length - 6);
+            return body;
+        }
+
+        public static string fetchWhere(string strSQL)
+        {
+            int index = strSQL.LastIndexOf("where");
+            if (index == -1) return "";
+
+            String where = strSQL.Substring(index, strSQL.Length - index);
+            return where;
+        }
+
+        public static bool isPage(string strSQL)
+        { 
+            string strSql = strSQL.ToLower();
+
+            /*if (AdoHelper.DbType == DatabaseType.SQLSERVER && strSql.IndexOf("from") != strSql.LastIndexOf("from"))
             {
-                int start = (pageIndex-1) * pageSize + 1;
-                int end = pageIndex * pageSize;
-                strSql = string.Format(mssqlPageTemplate, columns, columns, orderBy, tableName, start, end, orderBy);
+                return true;
+            }*/
+
+            if (AdoHelper.DbType == DatabaseType.SQLSERVER && strSql.IndexOf("row_number()") == -1)
+            {
+                return false;
+            }
+
+            if(AdoHelper.DbType == DatabaseType.MYSQL && strSql.IndexOf("limit") == -1)
+            {
+                return false;
+            }
+
+            if (AdoHelper.DbType == DatabaseType.ORACLE && strSql.IndexOf("rowid") == -1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static string builderPageSQL(string strSql, string order, bool desc)
+        {
+            string columns = fetchColumns(strSql);
+            string orderBy = order + (desc ? " desc " : " asc ");
+
+            if (AdoHelper.DbType == DatabaseType.SQLSERVER && strSql.IndexOf("row_number()") == -1)
+            {
+                string pageBody = fetchPageBody(strSql);
+                strSql = string.Format(mssqlPageTemplate, columns, orderBy, pageBody);
             }
 
             if (AdoHelper.DbType == DatabaseType.MYSQL)
-            {
-                int offset = (pageIndex-1) * pageSize;
-                int limit = pageSize;
-                strSql = string.Format(mysqlPageTemplate, strSql, orderBy, offset, limit);
+            {  
+                strSql = string.Format(mysqlPageTemplate, strSql, orderBy);
             }
             
             return strSql;
