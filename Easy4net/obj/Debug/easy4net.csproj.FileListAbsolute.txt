@@ -14,3 +14,4 @@ D:\workspace\easy4net\Easy4net\bin\Debug\Easy4net.dll
 D:\workspace\easy4net\Easy4net\bin\Debug\Easy4net.pdb
 D:\workspace\easy4net\Easy4net\obj\Debug\Easy4net.dll
 D:\workspace\easy4net\Easy4net\obj\Debug\Easy4net.pdb
+D:\workspace\easy4net\Easy4net\obj\Debug\Easy4net.csprojResolveAssemblyReference.cache
