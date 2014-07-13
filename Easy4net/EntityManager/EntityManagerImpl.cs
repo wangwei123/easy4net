@@ -303,6 +303,36 @@ namespace Easy4net.EntityManager
         #endregion
 
         #region 通过自定义SQL语句查询数据
+        public List<T> FindBySql<T>(string strSql) where T : new()
+        {
+            List<T> list = new List<T>();
+            IDataReader sdr = null;
+            try
+            {
+                strSql = strSql.ToLower();
+                String columns = SQLBuilderHelper.fetchColumns(strSql);
+
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
+
+                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, null);
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (sdr != null) sdr.Close();
+            }
+
+            return list;
+        }
+        #endregion
+
+
+        #region 通过自定义SQL语句查询数据
         public List<T> FindBySql<T>(string strSql, ParamMap param) where T : new()
         {
             List<T> list = new List<T>();

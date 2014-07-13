@@ -18,7 +18,10 @@ namespace Easy4net.Common
 
             strEntityName = classType.FullName;
 
-            object classAttr = classType.GetCustomAttributes(false)[0];
+            object[] attr = classType.GetCustomAttributes(false);
+            if (attr.Length == 0) return strTableName;
+
+            object classAttr = attr[0];
             if (classAttr is TableAttribute)
             {
                 TableAttribute tableAttr = classAttr as TableAttribute;

@@ -51,6 +51,11 @@ namespace Easy4net.DBUtility
         {
             return entityManager.FindAll<T>();
         }
+        
+        public List<T> FindBySql<T>(string strSql) where T : new()
+        {
+            return entityManager.FindBySql<T>(strSql);
+        }
 
         public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize, string order, bool desc) where T : new()
         {

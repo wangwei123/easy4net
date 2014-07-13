@@ -1,0 +1,4 @@
+D:\workspace\easy4net\EntityCodeBuilder\Entity\bin\Debug\Entity.dll
+D:\workspace\easy4net\EntityCodeBuilder\Entity\bin\Debug\Entity.pdb
+D:\workspace\easy4net\EntityCodeBuilder\Entity\obj\Debug\Entity.dll
+D:\workspace\easy4net\EntityCodeBuilder\Entity\obj\Debug\Entity.pdb

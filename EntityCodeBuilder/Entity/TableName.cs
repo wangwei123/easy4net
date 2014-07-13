@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace OrmDemo
+namespace EntityCodeBuilder.Entity
 {
-    public class Class1
+    public class TableName
     {
+        public string Name { get; set; }
     }
 }

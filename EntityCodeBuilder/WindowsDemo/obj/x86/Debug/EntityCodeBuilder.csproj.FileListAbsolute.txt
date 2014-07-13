@@ -1,7 +1,6 @@
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\EntityCodeBuilder.exe.config
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\EntityCodeBuilder.csprojResolveAssemblyReference.cache
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\WindowsDemo.Form1.resources
-D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\EntityCodeBuilder.Properties.Resources.resources
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\EntityCodeBuilder.csproj.GenerateResource.Cache
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\EntityCodeBuilder.exe
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\EntityCodeBuilder.pdb
@@ -10,3 +9,7 @@ D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\MySql.Data.dll
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\Easy4net.pdb
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\EntityCodeBuilder.exe
 D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\EntityCodeBuilder.pdb
+D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\Entity.dll
+D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\Entity.pdb
+D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\obj\x86\Debug\WindowsDemo.Properties.Resources.resources
+D:\workspace\easy4net\EntityCodeBuilder\WindowsDemo\bin\Debug\SyntaxTextBox.dll
