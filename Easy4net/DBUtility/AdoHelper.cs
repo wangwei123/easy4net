@@ -533,6 +533,6 @@ namespace Easy4net.DBUtility
             {
                 throw new Exception("数据库类型\"" + value + "\"错误，请检查！");
             }
-        }                             
+        }         
     }
 }

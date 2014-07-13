@@ -9,36 +9,40 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace Entiry
 {
     [Serializable]
-    [Table(Name = "student")]
+    //[Table(Name = "student")]
     public class Student
     {
         //主键 INDENTITY自动增长标识
-        [Id(Name = "id", Strategy = GenerationType.INDENTITY)]
-        public int? UserID { get; set; }
+        //[Id(Name = "id", Strategy = GenerationType.INDENTITY)]
+        public int? Id { get; set; }
 
-        [Column(Name = "no")]
+        //[Column]
         public string No { get; set; }
 
         //对应数据库中的名字为U_Name
-        [Column(Name = "name")]
+        //[Column]
         public string Name { get; set; }
 
-        [Column(Name = "age")] // int? 允许int为NULL时不会报错
+        //[Column] // int? 允许int为NULL时不会报错
         public long? Age { get; set; }
 
-        [Column(Name = "gender")]
+        //[Column]
         public string Gender { get; set; }
 
-        [Column(Name = "brithday")]
+        //[Column]
         public string Brithday { get; set; }
 
-        [Column(Name = "address")]
+        //[Column]
         public string Address { get; set; }
 
-        [Column(Name = "created")]
-        public DateTime? CreateTime { get; set; }
+        //[Column(Name = "created")]
+        //public DateTime? CreateTime { get; set; }
 
-        [Column(Name = "class_id")]
-        public int? ClassID { get; set; }
+        public DateTime? Created { get; set; }
+
+        //[Column(Name = "class_id")]
+        //public int? ClassID { get; set; }
+
+        public int? Class_id { get; set; }
     }
 }

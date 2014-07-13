@@ -23,7 +23,8 @@ namespace Easy4net.EntityManager
             object val = 0;
             try
             {
-                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.INSERT);
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(entity.GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.INSERT, properties);
 
                 String strSql = EntityHelper.GetInsertSql(tableInfo);
                 strSql += EntityHelper.GetAutoSql();
@@ -37,7 +38,7 @@ namespace Easy4net.EntityManager
 
                 if (Convert.ToInt32(val) > 0 && (AdoHelper.DbType == DatabaseType.MYSQL || AdoHelper.DbType == DatabaseType.SQLSERVER))
                 {
-                    PropertyInfo propertyInfo = EntityHelper.GetPrimaryKeyPropertyInfo(entity);
+                    PropertyInfo propertyInfo = EntityHelper.GetPrimaryKeyPropertyInfo(entity, properties);
                     ReflectionHelper.SetPropertyValue(entity, propertyInfo, val);
                 }
             }
@@ -56,7 +57,8 @@ namespace Easy4net.EntityManager
             object val = 0;
             try
             {
-                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.UPDATE);
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(entity.GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.UPDATE, properties);
 
                 String strSql = EntityHelper.GetUpdateSql(tableInfo);
 
@@ -82,7 +84,8 @@ namespace Easy4net.EntityManager
             object val = 0;
             try
             {
-                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.DELETE);
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(entity.GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(entity, DbOperateType.DELETE, properties);
 
                 String strSql = EntityHelper.GetDeleteByIdSql(tableInfo);
 
@@ -110,7 +113,8 @@ namespace Easy4net.EntityManager
             object val = 0;
             try
             {
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.DELETE);
+                PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.DELETE, properties);
 
                 String strSql = EntityHelper.GetDeleteByIdSql(tableInfo);
 
@@ -139,7 +143,7 @@ namespace Easy4net.EntityManager
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT, properties);
                 string strSql = EntityHelper.GetFindCountSql(tableInfo);
 
                 count = Convert.ToInt32(AdoHelper.ExecuteScalar(AdoHelper.ConnectionString, CommandType.Text, strSql));
@@ -160,7 +164,7 @@ namespace Easy4net.EntityManager
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT, properties);
                 tableInfo.Columns = condition.Columns;
 
                 string strSql = EntityHelper.GetFindCountSql(tableInfo, condition);
@@ -183,7 +187,7 @@ namespace Easy4net.EntityManager
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.COUNT, properties);
 
                 string strSql = EntityHelper.GetFindCountSql(tableInfo);
                 strSql += string.Format(" WHERE {0} = @{1}", propertyName, propertyName);
@@ -208,33 +212,16 @@ namespace Easy4net.EntityManager
         public List<T> FindAll<T>() where T : new()
         {
             IDataReader sdr = null;
-            List<T> listArr = new List<T>();
+            List<T> list = new List<T>();
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
 
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
                 String strSql = EntityHelper.GetFindAllSql(tableInfo).ToUpper();
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql);
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
-
-                        String columns = strSql.Substring(0, strSql.IndexOf("FROM"));
-                        if (columns.Contains(name.ToUpper()) || columns.Contains("*") || columns.Contains("top"))
-                        {
-                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                        }
-                    }
-
-                    listArr.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {
@@ -245,19 +232,19 @@ namespace Easy4net.EntityManager
                 if (sdr != null) sdr.Close();
             }
 
-            return listArr;
+            return list;
         }
         #endregion
 
         #region 通过自定义条件查询数据
         public List<T> Find<T>(DbCondition condition) where T : new()
         {
-            List<T> listArr = new List<T>();
+            List<T> list = new List<T>();
             IDataReader sdr = null;
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
 
                 String strSql = EntityHelper.GetFindSql(tableInfo, condition);
 
@@ -266,19 +253,7 @@ namespace Easy4net.EntityManager
                 IDbDataParameter[] parameters = tableInfo.GetParameters();
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, parameters);
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
-                        ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                    }
-
-                    listArr.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {
@@ -289,14 +264,14 @@ namespace Easy4net.EntityManager
                 if (sdr != null) sdr.Close();
             }
 
-            return listArr;
+            return list;
         }
         #endregion
 
         #region 通过自定义SQL语句查询数据
         public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize, string order, bool desc) where T : new()
         {
-            List<T> listArr = new List<T>();
+            List<T> list = new List<T>();
             IDataReader sdr = null;
             try
             {
@@ -304,7 +279,7 @@ namespace Easy4net.EntityManager
                 String columns = SQLBuilderHelper.fetchColumns(strSql);
 
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
 
                 strSql = SQLBuilderHelper.builderPageSQL(strSql, order, desc);
                 ParamMap param = ParamMap.newMap();
@@ -312,22 +287,7 @@ namespace Easy4net.EntityManager
                 param.setPageSize(pageSize);
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
-                        if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
-                        {
-                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                        }
-                    }
-
-                    listArr.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {
@@ -338,63 +298,14 @@ namespace Easy4net.EntityManager
                 if (sdr != null) sdr.Close();
             }
 
-            return listArr;
-        }
-        #endregion
-
-        #region 通过自定义SQL语句查询数据
-        public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize) where T : new()
-        {
-            List<T> listArr = new List<T>();
-            IDataReader sdr = null;
-            try
-            {
-                strSql = strSql.ToLower();
-                String columns = SQLBuilderHelper.fetchColumns(strSql);
-
-                PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
-
-                strSql = SQLBuilderHelper.builderPageSQL(strSql, tableInfo.Id.Key, true);
-                ParamMap param = ParamMap.newMap();
-                param.setPageIndex(pageIndex);
-                param.setPageSize(pageSize);
-
-                sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString().ToLower();
-                        if (columns.Contains(name) || columns.Contains("*"))
-                        {
-                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                        }
-                    }
-
-                    listArr.Add(entity);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                if (sdr != null) sdr.Close();
-            }
-
-            return listArr;
+            return list;
         }
         #endregion
 
         #region 通过自定义SQL语句查询数据
         public List<T> FindBySql<T>(string strSql, ParamMap param) where T : new()
         {
-            List<T> listArr = new List<T>();
+            List<T> list = new List<T>();
             IDataReader sdr = null;
             try
             {
@@ -402,29 +313,14 @@ namespace Easy4net.EntityManager
                 String columns = SQLBuilderHelper.fetchColumns(strSql);
 
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
                 if (param.IsPage && !SQLBuilderHelper.isPage(strSql))
                 {
-                    strSql = SQLBuilderHelper.builderPageSQL(strSql, tableInfo.Id.Key, true);
+                    strSql = SQLBuilderHelper.builderPageSQL(strSql, param.OrderFields, param.IsDesc);
                 }
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, param.toDbParameters());
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
-                        if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
-                        {
-                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                        }
-                    }
-
-                    listArr.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {
@@ -435,25 +331,25 @@ namespace Easy4net.EntityManager
                 if (sdr != null) sdr.Close();
             }
 
-            return listArr;
+            return list;
         }
         #endregion
 
         #region 根据一个查询条件查询数据
         public List<T> FindByProperty<T>(string propertyName, object propertyValue) where T : new()
         {
-            List<T> listArr = new List<T>();
+            List<T> list = new List<T>();
             IDataReader sdr = null;
             try
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
 
                 String strSql = EntityHelper.GetFindAllSql(tableInfo);
                 strSql += string.Format(" WHERE {0} = @{1}", propertyName, propertyName);
-                strSql = strSql.ToUpper();
+                strSql = strSql.ToLower();
 
-                String columns = strSql.Substring(0, strSql.IndexOf("FROM"));
+                String columns = SQLBuilderHelper.fetchColumns(strSql);// strSql.Substring(0, strSql.IndexOf("FROM"));
 
                 ColumnInfo columnInfo = new ColumnInfo();
                 columnInfo.Add(propertyName, propertyValue);
@@ -461,22 +357,7 @@ namespace Easy4net.EntityManager
                 EntityHelper.SetParameters(columnInfo, parameters);
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, parameters);
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
-                        if (columns.Contains(name.ToUpper()) || columns.Contains("*"))
-                        {
-                            ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                        }
-                    }
-
-                    listArr.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {
@@ -487,7 +368,7 @@ namespace Easy4net.EntityManager
                 if (sdr != null) sdr.Close();
             }
 
-            return listArr;
+            return list;
         }
         #endregion
 
@@ -501,7 +382,7 @@ namespace Easy4net.EntityManager
             {
                 PropertyInfo[] properties = ReflectionHelper.GetProperties(new T().GetType());
 
-                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT);
+                TableInfo tableInfo = EntityHelper.GetTableInfo(new T(), DbOperateType.SELECT, properties);
 
                 String strSql = EntityHelper.GetFindByIdSql(tableInfo);
 
@@ -510,18 +391,7 @@ namespace Easy4net.EntityManager
                 parms[0].Value = id;
 
                 sdr = AdoHelper.ExecuteReader(AdoHelper.ConnectionString, CommandType.Text, strSql, parms);
-                while (sdr.Read())
-                {
-                    T entity = new T();
-                    foreach (PropertyInfo property in properties)
-                    {
-                        if (EntityHelper.IsCaseColumn(property, DbOperateType.SELECT)) continue;
-
-                        String name = tableInfo.PropToColumn[property.Name].ToString();
-                        ReflectionHelper.SetPropertyValue(entity, property, sdr[name]);
-                    }
-                    list.Add(entity);
-                }
+                list = EntityHelper.toList<T>(sdr, tableInfo, properties);
             }
             catch (Exception ex)
             {

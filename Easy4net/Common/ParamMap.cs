@@ -13,8 +13,22 @@ namespace Easy4net.Common
         private bool isPage;
         private int pageOffset;
         private int pageLimit;
+        private string orderFields;
+        private bool isDesc = true;
 
         private ParamMap() { }
+
+        public string OrderFields
+        {
+            get { return orderFields; }
+            set { orderFields = value; }
+        }
+
+        public bool IsDesc
+        {
+            get { return isDesc; }
+            set { isDesc = value; }
+        }
 
         public static ParamMap newMap()
         {
@@ -35,7 +49,12 @@ namespace Easy4net.Common
             {
                 if (this.ContainsKey("pageIndex") && this.ContainsKey("pageSize"))
                 {
-                    return (this.getInt("pageIndex")-1) * this.getInt("pageSize");
+                    int pageIndex = this.getInt("pageIndex");
+                    int pageSize = this.getInt("pageSize");
+                    if (pageIndex <= 0) pageIndex = 1;
+                    if (pageSize <= 0) pageSize = 1;
+
+                    return (pageIndex - 1) * pageSize;
                 }
 
                 return 0;
@@ -91,6 +110,14 @@ namespace Easy4net.Common
             return Convert.ToDateTime(value);
         }
 
+        public void setOrderFields(string orderFields, bool isDesc)
+        {
+            this.orderFields = orderFields;
+            this.isDesc = isDesc;
+        }
+
+        
+
         public void setPageIndex(int pageIndex) 
         {
             this["pageIndex"] = pageIndex;
@@ -121,6 +148,9 @@ namespace Easy4net.Common
                 {
                     int pageIndex = this.getInt("pageIndex");
                     int pageSize = this.getInt("pageSize");
+                    if (pageIndex <= 0) pageIndex = 1;
+                    if (pageSize <= 0) pageSize = 1;
+
                     this["pageStart"] = (pageIndex - 1) * pageSize + 1;
                     this["pageEnd"] = pageIndex * pageSize;
                 }

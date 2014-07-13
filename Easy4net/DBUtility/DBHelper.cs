@@ -57,11 +57,6 @@ namespace Easy4net.DBUtility
             return entityManager.FindBySql<T>(strSql, pageIndex, pageSize, order, desc);
         }
 
-        public List<T> FindBySql<T>(string strSql, int pageIndex, int pageSize) where T : new()
-        {
-            return entityManager.FindBySql<T>(strSql, pageIndex, pageSize);
-        }
-
         public List<T> FindBySql<T>(string strSql, ParamMap param) where T : new()
         {
             return entityManager.FindBySql<T>(strSql, param);

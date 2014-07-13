@@ -37,7 +37,7 @@ namespace WindowsDemo
             int pageIndex = 1;
             int pageSize = 3;
             string strsql = "SELECT * FROM student where age < 30";
-            m_stuList = DB.FindBySql<Student>(strsql, pageIndex, pageSize);
+            m_stuList = DB.FindBySql<Student>(strsql, pageIndex, pageSize, "id", true);
             dataGridView1.DataSource = m_stuList;
         }
         #endregion
@@ -110,7 +110,7 @@ namespace WindowsDemo
                     txtAge.Text = student.Age.ToString();
                     txtGender.Text = student.Gender;
                     txtAddress.Text = student.Address;
-                    updateStudent.UserID = student.UserID;
+                    updateStudent.Id = student.Id;
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace WindowsDemo
 
             string sql = "SELECT * FROM (select * from student where age < @age or address= @address) as v";
             ParamMap param = ParamMap.newMap();
-            param.setParameter("age",24);
+            param.setParameter("age",80);
             param.setParameter("address", "上海市");
             param.setPageIndex(pageIndex);
             param.setPageSize(pageSize);
@@ -154,7 +154,7 @@ namespace WindowsDemo
                 //自定义SQL查询
                 pageIndex = 1;
                 pageSize = 3;
-                List<Student> list1 = DB.FindBySql<Student>("SELECT * FROM student WHERE age < 28", pageIndex, pageSize);
+                List<Student> list1 = DB.FindBySql<Student>("SELECT * FROM student WHERE age < 28", pageIndex, pageSize, "id", true);
 
                 //按某个列查询
                 List<Student> list2 = DB.FindByProperty<Student>("name", "张三");

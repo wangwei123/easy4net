@@ -9,7 +9,8 @@ namespace Easy4net.Common
     public class SQLBuilderHelper
     {
         private static string mssqlPageTemplate = "select {0} from (select ROW_NUMBER() OVER(order by {1}) AS RowNumber, {2}) as tmp_tbl where RowNumber BETWEEN @pageStart and @pageEnd ";
-        private static string mysqlPageTemplate = "{0} order by {1} limit ?offset,?limit";
+        private static string mysqlOrderPageTemplate = "{0} order by {1} limit ?offset,?limit";
+        private static string mysqlPageTemplate = "{0} limit ?offset,?limit";
 
         public static string fetchColumns(string strSQL)
         {
@@ -63,16 +64,29 @@ namespace Easy4net.Common
         {
             string columns = fetchColumns(strSql);
             string orderBy = order + (desc ? " desc " : " asc ");
+            
 
             if (AdoHelper.DbType == DatabaseType.SQLSERVER && strSql.IndexOf("row_number()") == -1)
             {
+                if (string.IsNullOrEmpty(order))
+                {
+                    throw new Exception(" SqlException: order field is null, you must support the order field for sqlserver page. ");
+                }
+
                 string pageBody = fetchPageBody(strSql);
                 strSql = string.Format(mssqlPageTemplate, columns, orderBy, pageBody);
             }
 
             if (AdoHelper.DbType == DatabaseType.MYSQL)
-            {  
-                strSql = string.Format(mysqlPageTemplate, strSql, orderBy);
+            {
+                if (!string.IsNullOrEmpty(order))
+                {
+                    strSql = string.Format(mysqlOrderPageTemplate, strSql, orderBy);
+                }
+                else
+                {
+                    strSql = string.Format(mysqlPageTemplate, strSql);
+                }
             }
             
             return strSql;

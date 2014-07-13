@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C54A1140-3F51-450A-A813-B556679934A8}</ProjectGuid>
+    <ProjectGuid>{B656A2BA-3B91-44F4-A673-CAF80E79B301}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Easy4net</RootNamespace>
-    <AssemblyName>Easy4net</AssemblyName>
+    <RootNamespace>OrmDemo</RootNamespace>
+    <AssemblyName>OrmDemo</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,14 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mysql.data, Version=5.0.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dll\mysql.data.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,34 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\ColumnInfo.cs" />
-    <Compile Include="Common\CommonUtils.cs" />
-    <Compile Include="Common\DbCondition.cs" />
-    <Compile Include="Common\EntityHelper.cs" />
-    <Compile Include="Common\DynamicCalls.cs" />
-    <Compile Include="Common\IdInfo.cs" />
-    <Compile Include="Common\Map.cs" />
-    <Compile Include="Common\ParamMap.cs" />
-    <Compile Include="Common\ReflectionHelper.cs" />
-    <Compile Include="Common\SQLBuilderHelper.cs" />
-    <Compile Include="Common\TableInfo.cs" />
-    <Compile Include="Common\TypeUtils.cs" />
-    <Compile Include="CustomAttributes\ColumnAttribute.cs" />
-    <Compile Include="CustomAttributes\GenerationType.cs" />
-    <Compile Include="CustomAttributes\IdAttribute.cs" />
-    <Compile Include="CustomAttributes\TableAttribute.cs" />
-    <Compile Include="DBUtility\AdoHelper.cs" />
-    <Compile Include="DBUtility\DatabaseType.cs" />
-    <Compile Include="DBUtility\DbFactory.cs" />
-    <Compile Include="DBUtility\DBHelper.cs" />
-    <Compile Include="DBUtility\DbOperateType.cs" />
-    <Compile Include="DBUtility\DbTypeConvert.cs" />
-    <Compile Include="EntityManager\EntityManager.cs" />
-    <Compile Include="EntityManager\EntityManagerFactory.cs" />
-    <Compile Include="EntityManager\EntityManagerImpl.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

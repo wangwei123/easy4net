@@ -309,7 +309,7 @@
             // 
             // Column1
             // 
-            this.Column1.DataPropertyName = "UserID";
+            this.Column1.DataPropertyName = "Id";
             this.Column1.HeaderText = "ID";
             this.Column1.Name = "Column1";
             this.Column1.Width = 60;
