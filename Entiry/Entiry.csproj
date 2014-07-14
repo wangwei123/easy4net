@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs" />
+    <Compile Include="StudentForQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Easy4net\Easy4net.csproj">
