@@ -1,7 +1,7 @@
 easy4net
 ========
 
-easy4net 是一个轻量级的ORM框架，能够方便的提供增删查改和复杂的SQL语句查询，目前支持MSSQL、Oracle、MySQL。 easy4net技术QQ 群：162695864
+easy4net 是一个轻量级的ORM框架，能够方便的提供增删查改和复杂的SQL语句查询，目前支持MSSQL、Oracle、MySQL、Access数据库。 easy4net技术QQ 群：162695864
 
 新增
 -------
@@ -124,14 +124,15 @@ namespace Entiry
 
 ```xml
 <configuration>
-　　　　<appSettings>
-            <add key="DbType" value="sqlserver"/>
-　　　　　　<add key="connectionString" value="Data Source=.;Initial Catalog=OrmDB;User ID=test;Password=test;Trusted_Connection=no;Min Pool Size=10;Max Pool Size=100;"/>
-　　
-</appSettings>
+  <appSettings>
+    <add key="DbType" value="sqlserver"/>
+    <add key="connectionString" value="Data Source=127.0.0.1;Initial Catalog=test;User ID=test;Password=test123;Trusted_Connection=no;Min Pool Size=10;Max Pool Size=100;"/>
+
+    <!--<add key="DbType" value="mysql"/>
+    <add key="connectionString" value="Data Source=127.0.0.1;port=8001;User ID=test;Password=123456;DataBase=test;Min Pool Size=10;Max Pool Size=100;"/>-->
+
+    <!--<add key="DbType" value="access"/>
+    <add key="connectionString" value="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=|DataDirectory|\tj.mdb"/>-->
+  </appSettings>
+</configuration>
 ```
-
-
-
-
-
